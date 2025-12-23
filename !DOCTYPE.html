@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cuenta Regresiva</title>
+
+<style>
+  body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f3e8ff;
+    font-family: Arial, sans-serif;
+  }
+
+  .countdown-container {
+    width: 260px;
+    padding: 25px 20px;
+    background: #e9d5ff;
+    border-radius: 30px;
+    text-align: center;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  }
+
+  .title {
+    color: #6b21a8;
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+
+  .time {
+    font-size: 26px;
+    font-weight: bold;
+    color: #7c3aed;
+    letter-spacing: 1px;
+  }
+
+  .labels {
+    font-size: 11px;
+    color: #6b21a8;
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .labels span {
+    width: 23%;
+    text-align: center;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="countdown-container">
+  <div class="title">Cuenta regresiva</div>
+  <div class="time" id="countdown">Cargando...</div>
+  <div class="labels">
+    <span>Días</span>
+    <span>Horas</span>
+    <span>Min</span>
+    <span>Seg</span>
+  </div>
+</div>
+
+<script>
+  // Año, mes (0 = enero), día, hora, minuto, segundo
+  const targetDate = new Date(2026, 0, 31, 22, 0, 0).getTime();
+
+  function updateCountdown() {
+    const now = Date.now();
+    const diff = targetDate - now;
+
+    if (diff <= 0) {
+      document.getElementById("countdown").textContent = "¡Llegó el día!";
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("countdown").textContent =
+      `${days} : ${hours.toString().padStart(2,'0')} : ` +
+      `${minutes.toString().padStart(2,'0')} : ` +
+      `${seconds.toString().padStart(2,'0')}`;
+  }
+
+  setInterval(updateCountdown, 1000);
+  updateCountdown();
+</script>
+
+</body>
+</html>
